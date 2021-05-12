@@ -1,10 +1,23 @@
 <script lang="ts">
-    let draft = "f";
+    let draft = "";
+    let comments: any[] = [
+        {
+            poster: "Tom",
+            comment: `Can't wait for the event today! 😀`,
+            time: "1 day ago",
+        },
+    ];
     function addToCalendar(): void {
         alert("Added to calendar!");
     }
-    function log(): void {
-        console.log(draft);
+    function postComment(): void {
+        const newComment: any = {
+            poster: "John Doe",
+            comment: draft,
+            time: "Just now"
+        }
+        comments = [...comments, newComment];
+        draft = "";
     }
 </script>
 
@@ -71,27 +84,30 @@
     </div>
     <div class="comments">
         <div class="comments__title">Comments</div>
-        <div class="comment">
-            <img src="assets/tom.png" alt="meetup" />
-            <div class="col full">
-                <div class="comment__text">
-                    <div class="comment__text--name">Tom</div>
-                    <div class="comment__text--comment">Can't wait! 😀</div>
+        {#each comments as comment}
+            <div class="comment">
+                <img src="assets/tom.png" alt="meetup" />
+                <div class="col full">
+                    <div class="comment__text">
+                        <div class="comment__text--name">{comment.poster}</div>
+                        <div class="comment__text--comment">
+                            {comment.comment}
+                        </div>
+                    </div>
+                    <div class="comment__time">{comment.time}</div>
                 </div>
-                <div class="comment__time">1 day ago</div>
             </div>
-        </div>
+        {/each}
     </div>
     <hr />
     <div class="draft">
         <img src="assets/tom.png" alt="meetup" />
         <textarea
-            on:keyup={log}
             placeholder="Add a comment..."
             bind:value={draft}
             class="draft__box"
         />
-        <div class="draft__button">&#9658;</div>
+        <div class="draft__button" on:click={postComment}>&#9658;</div>
     </div>
     <div class="footer" />
 </main>
