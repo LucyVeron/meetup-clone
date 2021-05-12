@@ -1,21 +1,40 @@
 <script lang="ts">
+    let draft = "f";
     function addToCalendar(): void {
         alert("Added to calendar!");
+    }
+    function log(): void {
+        console.log(draft);
     }
 </script>
 
 <main>
-    <div class="header">
+    <div class="header card">
         <img src="assets/logo_mobile.png" alt="meetup" />
+        <div class="header__right">
+            <div class="header__right--promotion">
+                <div>Start a new Group</div>
+                <div>50% OFF</div>
+            </div>
+            <nav>
+                <li><a href="https://www.google.com/">Explore</a></li>
+                <li><a href="https://www.google.com/">Messages</a></li>
+                <li><a href="https://www.google.com/">Notifications</a></li>
+            </nav>
+            <div class="profile">
+                <img src="assets/tom.png" alt="profile" />
+                <div class="profile__arrow">&#9660;</div>
+            </div>
+        </div>
     </div>
-    <div class="group">
+    <div class="group card">
         <img src="assets/tom.png" alt="group" />
         <div class="group__text">
             <div class="group__text--title">The Biz Club</div>
             <div class="group__text--subtitle">Public Group</div>
         </div>
     </div>
-    <div class="event">
+    <div class="event card">
         <div class="event__date">Saturday, May 15, 2021</div>
         <div class="event__title">Meet and Greet</div>
         <div class="host">
@@ -26,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div class="details">
+    <div class="details card">
         <div class="details__time">
             <div class="details__time--icon">🕒</div>
             <div class="details__time--text">
@@ -50,6 +69,30 @@
             </div>
         </div>
     </div>
+    <div class="comments">
+        <div class="comments__title">Comments</div>
+        <div class="comment">
+            <img src="assets/tom.png" alt="meetup" />
+            <div class="col full">
+                <div class="comment__text">
+                    <div class="comment__text--name">Tom</div>
+                    <div class="comment__text--comment">Can't wait! 😀</div>
+                </div>
+                <div class="comment__time">1 day ago</div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="draft">
+        <img src="assets/tom.png" alt="meetup" />
+        <textarea
+            on:keyup={log}
+            placeholder="Add a comment..."
+            bind:value={draft}
+            class="draft__box"
+        />
+        <div class="draft__button">&#9658;</div>
+    </div>
     <div class="footer" />
 </main>
 
@@ -59,22 +102,67 @@
         text-align: center;
         margin: 0 auto;
     }
-    .header {
+    .full {
+        width: 100%;
+    }
+    .row {
         display: flex;
-        padding: 0.5rem 0.3rem;
+    }
+    .col {
+        display: flex;
+        flex-direction: column;
+    }
+    .card {
         margin: 0.5rem;
         background: white;
         border: 1px solid gainsboro;
+    }
+    .header {
+        display: flex;
+        padding: 0.5rem 1rem;
+        &__right {
+            display: flex;
+            margin-left: auto;
+            > * {
+                margin: 0 0.5rem !important;
+            }
+            &--promotion {
+                color: skyblue;
+                width: 219px;
+            }
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            list-style-type: none;
+            width: 100%;
+            li {
+                margin: 0 0.5rem;
+                a {
+                    color: grey;
+                    text-decoration: none;
+                }
+            }
+        }
         img {
             height: 40px;
+        }
+    }
+    .profile {
+        margin: auto 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        img {
+            border-radius: 50%;
+            width: 40px;
+            margin-right: 0.2rem;
         }
     }
     .group {
         display: flex;
         padding: 1rem;
-        margin: 0.5rem;
-        background: white;
-        border: 1px solid gainsboro;
         &__text {
             margin: 0 1rem;
             display: flex;
@@ -97,9 +185,6 @@
     .event {
         text-align: left;
         padding: 2rem 1rem;
-        margin: 0.5rem;
-        background: white;
-        border: 1px solid gainsboro;
         &__date {
             color: grey;
         }
@@ -132,10 +217,7 @@
         display: flex;
         flex-direction: column;
         align-items: end;
-        margin: 0.5rem;
         padding: 1rem;
-        background: white;
-        border: 1px solid gainsboro;
         &__time {
             display: flex;
             &--text {
@@ -160,6 +242,59 @@
                     margin: 0;
                 }
             }
+        }
+    }
+    .comments {
+        &__title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0 0 1rem 0.5rem;
+            text-align: left;
+        }
+    }
+    .comment {
+        display: flex;
+        margin-bottom: 1rem;
+        &__text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 0 0.5rem 0 1rem;
+            background: white;
+            padding: 1rem;
+            &--name {
+                font-weight: 700;
+            }
+        }
+        &__time {
+            text-align: left;
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            color: grey;
+        }
+        img {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+        }
+    }
+    .draft {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        > * {
+            margin: 0 0.5rem;
+        }
+        img {
+            border-radius: 50%;
+            height: 35px;
+            width: 40px;
+        }
+        &__box {
+            width: 100%;
+        }
+        &__button {
+            cursor: pointer;
         }
     }
     @media (min-width: 640px) {
