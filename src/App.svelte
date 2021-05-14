@@ -14,8 +14,8 @@
         const newComment: any = {
             poster: "John Doe",
             comment: draft,
-            time: "Just now"
-        }
+            time: "Just now",
+        };
         comments = [...comments, newComment];
         draft = "";
     }
@@ -23,7 +23,7 @@
 
 <main>
     <div class="header card">
-        <img src="assets/logo_mobile.png" alt="meetup" />
+        <img src="assets/logo.png" alt="meetup" />
         <div class="header__right">
             <div class="header__right--promotion">
                 <div>Start a new Group</div>
@@ -40,13 +40,6 @@
             </div>
         </div>
     </div>
-    <div class="group card">
-        <img src="assets/tom.png" alt="group" />
-        <div class="group__text">
-            <div class="group__text--title">The Biz Club</div>
-            <div class="group__text--subtitle">Public Group</div>
-        </div>
-    </div>
     <div class="event card">
         <div class="event__date">Saturday, May 15, 2021</div>
         <div class="event__title">Meet and Greet</div>
@@ -58,56 +51,98 @@
             </div>
         </div>
     </div>
-    <div class="details card">
-        <div class="details__time">
-            <div class="details__time--icon">🕒</div>
-            <div class="details__time--text">
-                <div class="details__time--text-info">
-                    <p>Saturday, May 15 2021</p>
-                    <p>11:00 AM to 2:00 PM GMT+2</p>
-                    <p>Every week on Saturday</p>
-                </div>
-                <div class="details__time--text-add" on:click={addToCalendar}>
-                    Add to calendar
+
+    <div class="row">
+        <div class="col">
+            <img
+                class="banner"
+                style=""
+                src="assets/meetandgreet.jpg"
+                alt="meetandgreet"
+            />
+            <div class="details">
+                <div class="details__header">Details</div>
+                <div class="details__body">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit
+                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                    occaecat cupidatat non proident, sunt in culpa qui officia
+                    deserunt mollit anim id est laborum."
                 </div>
             </div>
-        </div>
-        <div class="details__place">
-            <div class="details__place--icon">📍</div>
-            <div class="details__place--text">
-                <div class="details__place--text-info">
-                    <p>123 Sesame Street</p>
-                    <p>Anytown, Germany</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="comments">
-        <div class="comments__title">Comments</div>
-        {#each comments as comment}
-            <div class="comment">
-                <img src="assets/tom.png" alt="meetup" />
-                <div class="col full">
-                    <div class="comment__text">
-                        <div class="comment__text--name">{comment.poster}</div>
-                        <div class="comment__text--comment">
-                            {comment.comment}
+            <div class="comments">
+                <div class="comments__title">Comments</div>
+                {#each comments as comment}
+                    <div class="comment">
+                        <img src="assets/tom.png" alt="meetup" />
+                        <div class="col full">
+                            <div class="comment__text">
+                                <div class="comment__text--name">
+                                    {comment.poster}
+                                </div>
+                                <div class="comment__text--comment">
+                                    {comment.comment}
+                                </div>
+                            </div>
+                            <div class="comment__time">{comment.time}</div>
                         </div>
                     </div>
-                    <div class="comment__time">{comment.time}</div>
+                {/each}
+            </div>
+            <div class="draft">
+                <img src="assets/tom.png" alt="meetup" />
+                <textarea
+                    placeholder="Add a comment..."
+                    bind:value={draft}
+                    class="draft__box"
+                />
+                <div class="draft__button" on:click={postComment}>&#9658;</div>
+            </div>
+        </div>
+        <div class="col right-group">
+            <div class="group card row">
+                <img src="assets/tom.png" alt="group" />
+                <div class="group__text">
+                    <div class="group__text--title">The Biz Club</div>
+                    <div class="group__text--subtitle">Public Group</div>
                 </div>
             </div>
-        {/each}
-    </div>
-    <hr />
-    <div class="draft">
-        <img src="assets/tom.png" alt="meetup" />
-        <textarea
-            placeholder="Add a comment..."
-            bind:value={draft}
-            class="draft__box"
-        />
-        <div class="draft__button" on:click={postComment}>&#9658;</div>
+
+            <div class="logistics card row">
+                <div class="logistics__time">
+                    <div class="logistics__time--icon">🕒</div>
+                    <div class="logistics__time--text">
+                        <div class="logistics__time--text-info">
+                            <p>Saturday, May 15 2021</p>
+                            <p>11:00 AM to 2:00 PM GMT+2</p>
+                            <p>Every week on Saturday</p>
+                        </div>
+                        <div
+                            class="logistics__time--text-add"
+                            on:click={addToCalendar}
+                        >
+                            Add to calendar
+                        </div>
+                    </div>
+                </div>
+                <div class="logistics__place">
+                    <div class="logistics__place--icon">📍</div>
+                    <div class="logistics__place--text">
+                        <div class="logistics__place--text-info">
+                            <p>123 Sesame Street</p>
+                            <p>Anytown, Germany</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card row">
+                <img class="map" src="assets/map.png" alt="map" />
+            </div>
+        </div>
     </div>
     <div class="footer" />
 </main>
@@ -128,10 +163,12 @@
         display: flex;
         flex-direction: column;
     }
+    .right-group {
+        max-width: 600px;
+    }
     .card {
         margin: 0.5rem;
         background: white;
-        border: 1px solid gainsboro;
     }
     .header {
         display: flex;
@@ -145,6 +182,7 @@
             &--promotion {
                 color: skyblue;
                 width: 219px;
+                border-right: 1px solid gainsboro;
             }
         }
         nav {
@@ -200,7 +238,7 @@
     }
     .event {
         text-align: left;
-        padding: 2rem 1rem;
+        padding: 1rem;
         &__date {
             color: grey;
         }
@@ -229,7 +267,25 @@
             border-radius: 50%;
         }
     }
+    .banner {
+        height: 30vw;
+        max-height: 400px;
+        max-width: 600px;
+        margin: 0.5rem;
+    }
     .details {
+        margin: 1rem;
+        text-align: left;
+        &__header {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        &__body {
+            max-width: 600px;
+        }
+    }
+    .logistics {
         display: flex;
         flex-direction: column;
         align-items: end;
@@ -260,11 +316,15 @@
             }
         }
     }
+    .map {
+        width: 100%;
+    }
     .comments {
+        margin: 1rem;
         &__title {
             font-size: 20px;
             font-weight: 700;
-            padding: 0 0 1rem 0.5rem;
+            padding-bottom: 1rem;
             text-align: left;
         }
     }
