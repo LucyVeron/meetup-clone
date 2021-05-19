@@ -1,22 +1,35 @@
 <script lang="ts">
+    // Type interface for comments
+    interface Comment {
+        poster: string;
+        comment: string;
+        time: string;
+    }
+
+    // Your new comment to add
     let draft = "";
-    let comments: any[] = [
+
+    // Existing Comment array
+    let comments: Comment[] = [
         {
             poster: "Tom",
             comment: `Can't wait for the event today! 😀`,
             time: "1 day ago",
         },
     ];
-    function addToCalendar(): void {
-        alert("Added to calendar!");
-    }
+
     function postComment(): void {
-        const newComment: any = {
+        // Object of type "Comment"
+        const newComment: Comment = {
             poster: "John Doe",
             comment: draft,
             time: "Just now",
         };
+
+        // Spread operator to add new comment
         comments = [...comments, newComment];
+
+        // Reset the draft box
         draft = "";
     }
 </script>
@@ -120,12 +133,7 @@
                             <p>11:00 AM to 2:00 PM GMT+2</p>
                             <p>Every week on Saturday</p>
                         </div>
-                        <div
-                            class="logistics__time--text-add"
-                            on:click={addToCalendar}
-                        >
-                            Add to calendar
-                        </div>
+                        <div>Add to calendar</div>
                     </div>
                 </div>
                 <div class="logistics__place">
@@ -133,7 +141,7 @@
                     <div class="logistics__place--text">
                         <div class="logistics__place--text-info">
                             <p>123 Sesame Street</p>
-                            <p>Anytown, Germany</p>
+                            <p>Anytown, USA</p>
                         </div>
                     </div>
                 </div>
@@ -295,10 +303,6 @@
             &--text {
                 text-align: left;
                 padding-left: 1rem;
-                &-add {
-                    color: skyblue;
-                    cursor: pointer;
-                }
                 &-info p {
                     margin: 0;
                 }
